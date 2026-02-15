@@ -19,11 +19,11 @@ function GetLogs() {
   me.renderLogs = (logs) => {
     const logDiv = document.getElementById("logs");
     logDiv.innerHTML = ""; //clear out any old cards
-    for (const {emotionBefore, emotionAfter} of logs) {
+    for (const {emotionBefore, emotionAfter, distressBefore, distressAfter, tempTime, exerciseTime, breathingTime, relaxationTime, timestamp} of logs) {
       const card = document.createElement("div");
       card.className = "card mb-3";
       card.innerHTML = `
-        <div>${emotionBefore} ${emotionAfter} </div> 
+        <div>${emotionBefore} ${emotionAfter} ${distressBefore}, ${distressAfter}, ${tempTime}, ${exerciseTime}, ${breathingTime}, ${relaxationTime}, ${timestamp} </div> 
       `;
       logDiv.appendChild(card);
     }
