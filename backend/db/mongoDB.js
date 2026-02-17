@@ -53,7 +53,23 @@ function MongoDB() {
       result = await sessionLogsCollection.insertOne(record);
       return result;
     }  catch (err) {
-      console.error("ERROR fetching session logs from MongoDB: ", err);
+      console.error("ERROR inserting session log to MongoDB: ", err);
+      return result;
+    } finally {
+      client.close();
+    }
+  }
+
+  me.updateOne = async(idString, record) => {
+    console.log("MongoDB UpdateOne idString:", idString, "record:", record);
+    const {client, sessionLogsCollection} = connect();
+    try {
+      return await sessionLogsCollection.updateOne(
+        {_id: new ObjectId(idString)}, 
+        record
+      );
+    }  catch (err) {
+      console.error("ERROR updating session log in MongoDB: ", err);
     } finally {
       client.close();
     }

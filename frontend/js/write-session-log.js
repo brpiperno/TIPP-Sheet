@@ -42,8 +42,13 @@ const EMOTION_MAP = {
 
 //------------ API VARIABLES ----------------------
 let userId = 0; //TODO: FUTURE WORK: integrate users collection. For now hardcode to user 0;
+let logId = '699253a7a17a677e8b914077'; //TODO: read latest logId from local storage
 let distressLevel = null;
 let emotion = null;
+let tempTime = 0;
+let exerciseTime = 0;
+let breathingTime = 0;
+let relaxationTime = 0;
 
 //------------ DOM REFERENCES ---------------------
 //UI elements to select and display a user's current distress level
@@ -55,8 +60,9 @@ const mainEmotionContainer = document.getElementById("main-options");
 const subEmotionContainer = document.getElementById("sub-options");
 
 //Button to start a TIPP session (and log any information collected)
-const postButton = document.getElementById("post-button");
-
+const logInfoButton = document.getElementById("post-button");
+const hasPrePracticeSurvey = !!document.querySelector(".pre-practice");
+const hasPostPracticeSurvey = !!document.querySelector(".post-practice");
 //------------ FUNCTIONS ------------------------------
 function renderEmotionOptions() {
   Object.keys(EMOTION_MAP).forEach((key, index) => {
@@ -91,12 +97,12 @@ function renderSubEmotionOptions(mainEmotion) {
 
 async function postPreSessionLog() {
   const requestBody = { userId, distressLevel, emotion };
-  console.log("POST /api/log with body:", requestBody);
+  console.log("FE: POST /api/log with body:", requestBody);
 
   try {
     const response = await fetch("/api/log", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody)
     });
 
@@ -105,11 +111,34 @@ async function postPreSessionLog() {
       return;
     }
 
-    const data = await response.json().catch(() => null);
+    const data = await response.json().catch(() => {});
     console.log("Success! Response:", data);
 
   } catch (err) {
     console.error("Network error posting log:", err);
+  }
+}
+
+async function patchPostSessionLog() {
+  const requestBody = {distressLevel, emotion, tempTime, exerciseTime, breathingTime, relaxationTime};
+  console.log("FE: PATCH /api/log/:logId requestBody: ", requestBody);
+
+  try {
+    const response = await fetch(`/api/log/${logId}`, {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      console.error("FE: Failed to PATCH log data: ", response.status);
+      return;
+    }
+
+    const data = await response.json().catch(() => {});
+    console.log("Success! Response: ", data);
+  } catch (err) {
+    console.error("Network error patching log: ", err);
   }
 }
 
@@ -130,7 +159,14 @@ subEmotionContainer.addEventListener("change", (e) => {
   emotion = e.target.value;
 })
 
-postButton.addEventListener("click", postPreSessionLog);
+logInfoButton.addEventListener("click", (e) => {
+    if (hasPrePracticeSurvey) {
+      postPreSessionLog();
+    }
+    else if (hasPostPracticeSurvey) {
+      patchPostSessionLog();
+    }
+});
 
 //------------ RUN MISC RENDERING FUNCTIONS --------------------------
 renderEmotionOptions();
