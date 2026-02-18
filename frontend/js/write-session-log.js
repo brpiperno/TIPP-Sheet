@@ -173,9 +173,9 @@ mainEmotionContainer.addEventListener("change", (e) => {
 
 subEmotionContainer.addEventListener("change", (e) => {
   emotion = e.target.value;
-})
+});
 
-saveInfoButton.addEventListener("click", (e) => {
+saveInfoButton.addEventListener("click", () => {
     if (saveInfoButton.getAttribute("data-surveytype") == "pre") {
       postPreSessionLog();
     }

@@ -22,6 +22,77 @@
     <meta name="author" content="Ben Piperno and Yash Mahesh Burshe" />
   </head>
 
+  <!-- Modal to log emotional state after TIPP -->
+  <div
+    class="modal fade"
+    id="post-session-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Describe your distress level and emotions
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6 class="mb-3">
+            After TIPP, I'd rate my distress at:
+            <strong id="sliderValue">1</strong>
+          </h6>
+          <p>(0 = not at all, 5 = most intense)</p>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="5"
+            step="1"
+            value="0"
+            id="stepSlider"
+          />
+          <div class="d-flex justify-content-between mt-2">
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <h6 class="mb-3">The biggest emotion I'm feeling is</h6>
+          <!-- Row 1: Main Options -->
+          <div id="main-options" class="btn-group" role="group"></div>
+          <!-- Row 2: Sub Options -->
+          <div id="sub-options" class="mt-4"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Not this time
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-dismiss="modal"
+            id="save-survey-btn"
+            data-surveytype="post"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <body class="d-flex h-100 text-center text-white bg-dark">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <header class="mb-auto">
@@ -40,9 +111,6 @@
         <h1>Paced Breathing</h1>
         <h6>Minimum: 1 minute</h6>
         <br />
-        <button class="log-progress" data-storagekey="breathingTime">
-          Log Progress
-        </button>
         <div class="d-flex flex-row">
           <div class="col-1">
             <a
@@ -58,7 +126,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-center">
-                    <h2>Start Exercise?</h2>
+                    <h2>track my time</h2>
                   </div>
                 </div>
                 <div class="row mt-5">
@@ -67,13 +135,9 @@
                       <div class="card-body">
                         <div class="card text-white bg-primary">
                           <div class="card-body text-center" id="time">
-                            <span class="digit" id="hr">00</span>
-                            <span class="txt">Hr</span>
                             <span class="digit" id="min">00</span>
-                            <span class="txt">Min</span>
+                            <span class="txt">:</span>
                             <span class="digit" id="sec">00</span>
-                            <span class="txt">Sec</span>
-                            <span class="digit" id="count">00</span>
                           </div>
                         </div>
                       </div>
@@ -123,13 +187,16 @@
           </div>
         </div>
         <div>
-          <a
+          <button
             href="./post-practice.html"
-            class="btn btn-primary"
-            id="done-with-TIPP"
+            class="btn btn-primary log-progress"
+            data-storagekey="breathingTime"
+            data-toggle="modal"
+            id="open-survey-btn"
+            data-target="#post-session-modal"
           >
             Finish
-          </a>
+          </button>
         </div>
       </main>
 
@@ -140,6 +207,7 @@
       </footer>
     </div>
     <script type="module" src="./js/stopwatch.js"></script>
+    <script type="module" src="./js/write-session-log.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
