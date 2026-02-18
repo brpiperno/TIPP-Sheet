@@ -46,14 +46,15 @@ function MongoDB() {
   }
 
   me.insertOne = async(record) => {
-    console.log("MongoDB driver InsertOne query: ", record);
     const {client, sessionLogsCollection} = connect();
     let result = {};
     try {
       result = await sessionLogsCollection.insertOne(record);
+      console.log("MongoDB insert: " , record, "result: ", result);
       return result;
     }  catch (err) {
-      console.error("ERROR inserting session log to MongoDB: ", err);
+      console.error("ERROR inserting session log to MongoDB: ", err, 
+        "record: ", record);
       return result;
     } finally {
       client.close();

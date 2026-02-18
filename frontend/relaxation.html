@@ -39,11 +39,15 @@
         <h1>Progressive Muscle Relaxation</h1>
         <h6>Minimum: 15 minutes</h6>
         <br />
+        <button class="log-progress" data-storagekey="relaxationTime">
+          Log Progress
+        </button>
         <div class="d-flex flex-row">
           <div class="col-1">
             <a
               href="./breathing.html"
-              class="btn btn-outline-primary sticky-top"
+              class="btn btn-outline-primary sticky-top log-progress"
+              data-storagekey="relaxationTime"
             >
               <i class="bi bi-arrow-left"></i>
             </a>
@@ -134,6 +138,15 @@
             </div>
           </div>
           <div class="col-1"></div>
+        </div>
+        <div>
+          <a
+            href="./post-practice.html"
+            class="btn btn-primary log-progress"
+            data-storagekey="relaxationTime"
+          >
+            Finish
+          </a>
         </div>
       </main>
 

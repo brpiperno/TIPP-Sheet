@@ -14,7 +14,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="./css/breathing.css"/>
+    <link rel="stylesheet" href="./css/breathing.css" />
     <meta
       name="description"
       content="Mental Health Resource for Distress Tolerance using TIPP (Temperature, Intense Exercise, Paced Breathing, Progressive Muscle Relaxation)"
@@ -40,11 +40,15 @@
         <h1>Paced Breathing</h1>
         <h6>Minimum: 1 minute</h6>
         <br />
+        <button class="log-progress" data-storagekey="breathingTime">
+          Log Progress
+        </button>
         <div class="d-flex flex-row">
           <div class="col-1">
             <a
               href="./exercise.html"
-              class="btn btn-outline-primary sticky-top"
+              class="btn btn-outline-primary sticky-top log-progress"
+              data-storagekey="breathingTime"
             >
               <i class="bi bi-arrow-left"></i>
             </a>
@@ -87,7 +91,10 @@
               <h5 class="card-header">Background</h5>
               <div class="card-body">
                 <p class="card-text">
-                  Slowing down our breathing and making our exhale longer than our inhale activates the parasympathetic nervous system, helping regulate our emotions. We always have access to our breath, making paced breathing a very accessible option.
+                  Slowing down our breathing and making our exhale longer than
+                  our inhale activates the parasympathetic nervous system,
+                  helping regulate our emotions. We always have access to our
+                  breath, making paced breathing a very accessible option.
                 </p>
               </div>
             </div>
@@ -95,20 +102,34 @@
               <h5 class="card-header">Instructions</h5>
               <div class="card-body">
                 <p class="card-text">
-                  Place one hand on your abdomen and notice the rise and fall with each deep breath. Breath in as the circle expands, and breath out as the circle contracts. For some, longer exhales may be uncomfortable and require more practice. Just slowing and deepening your breath can have some effect.
+                  Place one hand on your abdomen and notice the rise and fall
+                  with each deep breath. Breath in as the circle expands, and
+                  breath out as the circle contracts. For some, longer exhales
+                  may be uncomfortable and require more practice. Just slowing
+                  and deepening your breath can have some effect.
                 </p>
                 <div class="circle"></div>
               </div>
             </div>
           </div>
-           <div class="col-1">
+          <div class="col-1">
             <a
               href="./relaxation.html"
-              class="btn btn-outline-primary sticky-top"
+              class="btn btn-outline-primary sticky-top log-progress"
+              data-storagekey="breathingTime"
             >
               <i class="bi bi-arrow-right"></i>
             </a>
           </div>
+        </div>
+        <div>
+          <a
+            href="./post-practice.html"
+            class="btn btn-primary"
+            id="done-with-TIPP"
+          >
+            Finish
+          </a>
         </div>
       </main>
 
