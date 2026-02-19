@@ -32,17 +32,24 @@
         </div>
       </header>
       <main>
-        <h1>Login</h1>
-        <form id="loginForm">
+        <h1>Sign Up</h1>
+        <form id="signupForm">
           <div class="mb-3">
             <label for="usernameInput" class="form-label">Username</label>
             <input type="text" class="form-control" name="username" id="usernameInput" />
           </div>
+
           <div class="mb-3">
             <label for="passwordInput" class="form-label">Password</label>
             <input type="password" class="form-control" name="password" id="passwordInput" />
           </div>
-          <button class="btn btn-primary">Login</button>
+
+          <div class="mb-3">
+            <label for="passwordConfirmInput" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="passwordConfirm" id="passwordConfirmInput" />
+          </div>
+
+          <button class="btn btn-primary">Create account</button>
         </form>
         <p class="text-danger" id="errorMessage"></p>
       </main>
