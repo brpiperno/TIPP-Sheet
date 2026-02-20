@@ -1,5 +1,5 @@
 import express from "express";
-import mongoDB, { collections } from "../db/mongoDB.js";
+import {mongoDB, collections } from "../db/mongoDB.js";
 const router = express.Router();
 
 //create a new log, return the log id
