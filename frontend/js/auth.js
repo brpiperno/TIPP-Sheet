@@ -32,7 +32,7 @@ loginForm.addEventListener('submit', async(e) => {
         }
     } catch(error) {
         console.error("Network error: ", error);
-        errorMessageP.innerHTML = `Error logging in: ${data.message}`
+        errorMessageP.innerHTML = `Error logging in: ${error.message}`
 
     }
 })
@@ -74,7 +74,7 @@ signupForm.addEventListener('submit', async(e) => {
         }
     } catch(error) {
         console.error("Network error: ", error);
-        errorMessageP.innerHTML = `Error signing up: ${data.message}`
+        errorMessageP.innerHTML = `Error signing up: ${error.message}`
 
     }
 })
