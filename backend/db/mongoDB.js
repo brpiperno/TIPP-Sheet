@@ -46,11 +46,14 @@ function MongoDB() {
     }
   };
 
-  me.findOne = async (collectionName, query = {}) => {
-    console.log("MongoDB driver FindOne called with query: ", query);
+  me.findOne = async (collectionName, idString) => {
+    console.log("MongoDB findOne by idString: ", idString);
     const { client, collection } = await connect(collectionName);
     try {
-      const data = await collection.findOne(query);
+      const data = await collection.findOne(
+          { _id: new ObjectId(idString)}
+        );
+      console.log(data);
       return data;
     } catch (err) {
       console.error("ERROR fetching session logs from MongoDB: ", err);
@@ -120,12 +123,10 @@ export async function connectDB() {
     family: 4
   });
 
-  console.log(process.env.MONGODB_URI)
-
   try {
     await client.connect();
     console.log("MongoDB connection estabilished");
-    const db = client.db("TIPPSheet");
+    const db = client.db(DB_NAME);
     return db;
   } catch(error) {
     console.error("Failed to connect to database", error);

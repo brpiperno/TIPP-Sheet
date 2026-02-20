@@ -41,6 +41,8 @@ router.post("", async (req, res) => {
 
 //get a log by its logid
 router.get("/:logId", async (req, res) => {
+  const logId = req.params.logId;
+  console.log(`sessionLogRouter: GET /api/log/${logId}`);
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(" ")[1];
@@ -111,7 +113,7 @@ router.get("", async (req, res) => {
 //delete a specific log
 router.delete("/:logId", async (req, res) => {
   const logId = req.params.logId;
-  console.log(`sessionLogRouter: PATCH /api/${logId}`);
+  console.log(`sessionLogRouter: DELETE /api/${logId}`);
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
