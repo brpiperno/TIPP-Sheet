@@ -115,7 +115,6 @@ function MongoDB() {
 // instead of having two functions because we don't want multiple connections to the db at once.
 
 export async function connectDB() {
-  
   const uri = process.env.MONGODB_URI || "mongodb://localhost:27107";
   const client = new MongoClient(uri, {
     family: 4

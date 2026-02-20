@@ -1,9 +1,8 @@
-import dotenv from "dotenv"
 import express from 'express';
 import sessionLogRouter from './routes/sessionLogRouter.js'
 import authRouter from './routes/authRouter.js'
 
-dotenv.config();
+process.loadEnvFile();
 
 const PORT = process.env.PORT || 3000;
 
