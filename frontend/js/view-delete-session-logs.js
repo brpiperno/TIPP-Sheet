@@ -243,19 +243,21 @@ function updateCumulativeStats(logs) {
   logs.forEach((log) => {
     const before = Number(log.distressBefore) || 0;
     const after = Number(log.distressAfter) || 0;
-    const reduction = before - after;
-    const pointsDropped = reduction > 0 ? reduction : 0;
+    
+    const netChange = before - after;
 
-    if (Number(log.tempTime) > 0) totals.T += pointsDropped;
-    if (Number(log.exerciseTime) > 0) totals.I += pointsDropped;
-    if (Number(log.breathingTime) > 0) totals.P += pointsDropped;
-    if (Number(log.relaxationTime) > 0) totals.R += pointsDropped;
+    if (Number(log.tempTime) > 0) totals.T += netChange;
+    if (Number(log.exerciseTime) > 0) totals.I += netChange;
+    if (Number(log.breathingTime) > 0) totals.P += netChange;
+    if (Number(log.relaxationTime) > 0) totals.R += netChange;
   });
 
-  document.getElementById("stat-T").innerText = totals.T;
-  document.getElementById("stat-I").innerText = totals.I;
-  document.getElementById("stat-P").innerText = totals.P;
-  document.getElementById("stat-R").innerText = totals.R;
+  const formatStat = (val) => (val > 0 ? `+${val}` : val);
+
+  document.getElementById("stat-T").innerText = formatStat(totals.T);
+  document.getElementById("stat-I").innerText = formatStat(totals.I);
+  document.getElementById("stat-P").innerText = formatStat(totals.P);
+  document.getElementById("stat-R").innerText = formatStat(totals.R);
 }
 
 fetchAndRender();
