@@ -51,8 +51,7 @@
       tabindex="-1"
       aria-labelledby="logModalLabel"
       aria-hidden="true"
-    >
-    </div>
+    ></div>
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark text-white">
@@ -63,6 +62,26 @@
             <form id="editForm">
               <input type="hidden" id="editLogId" />
               <div class="row g-3">
+                <div class="col-6">
+                  <label class="form-label small text-white-50"
+                    >Emotion (Before)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-secondary"
+                    id="editEmotionBefore"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small text-white-50"
+                    >Emotion (After)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-secondary"
+                    id="editEmotionAfter"
+                  />
+                </div>
                 <div class="col-6">
                   <label class="form-label text-white-50"
                     >Distress (Before)</label
@@ -88,24 +107,14 @@
                   />
                 </div>
                 <div class="col-6">
-                  <label class="form-label text-white-50"
-                    >Temp Time (s)</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="editTemp"
-                  />
+                  <label class="form-label text-white-50">Temp Time (s)</label>
+                  <input type="number" class="form-control" id="editTemp" />
                 </div>
                 <div class="col-6">
                   <label class="form-label text-white-50"
                     >Exercise Time (s)</label
                   >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="editExercise"
-                  />
+                  <input type="number" class="form-control" id="editExercise" />
                 </div>
                 <div class="col-6">
                   <label class="form-label text-white-50"

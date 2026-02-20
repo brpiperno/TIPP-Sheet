@@ -92,6 +92,7 @@ function renderAgenda() {
 }
 
 function renderAgendaItem(log) {
+  const date = new Date(log.timestamp).toDateString();
   const time = new Date(log.timestamp).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -99,35 +100,40 @@ function renderAgendaItem(log) {
   const distressChange = (log.distressAfter || 0) - (log.distressBefore || 0);
 
   return `
-<div class="list-group-item bg-dark text-white border-0 p-3 rounded mb-2">
-  <div class="row align-items-center">
-    
-    <div class="col-auto">
-      <span class="badge bg-primary" style="min-width: 70px;">${time}</span>
+<div class="list-group-item bg-dark text-white p-3 rounded mb-2">
+  <div class="row align-items-center text-start">
+    <div class="col-auto d-flex flex-column gap-1">
+      <span class="badge bg-primary" style="min-width: 80px;">${date}</span>
+      <span class="badge bg-primary" style="min-width: 80px;">${time}</span>
     </div>
 
     <div class="col">
-      <div class="fw-bold">
-        Distress: ${log.distressBefore || "X"} to ${log.distressAfter || "X"} 
-        <span class="ms-2 text-info">(Change: ${distressChange})</span>
+      <div>
+        Distress: ${log.distressBefore ?? "X"} → ${log.distressAfter ?? "X"} 
+        <span class="ms-2">
+          (${distressChange})
+        </span>
+      </div>
+      <div class="small text-info mb-1">
+        Emotion: <span class="text-white">${log.emotionBefore || 'None'}</span> 
+        → <span class="text-white">${log.emotionAfter || 'None'}</span>
       </div>
       <div class="text-white-50 small">
-        ${log.tempTime ? `Temp: ${log.tempTime}s ` : ""}
-        ${log.exerciseTime ? `Exercise: ${log.exerciseTime}s ` : ""}
-        ${log.breathingTime ? `Breathing: ${log.breathingTime}s ` : ""}
-        ${log.relaxationTime ? `Relaxation: ${log.relaxationTime}s ` : ""}
+        ${log.tempTime ? `Temp: ${log.tempTime}s | ` : ""}
+        ${log.exerciseTime ? `Exercise: ${log.exerciseTime}s | ` : ""}
+        ${log.breathingTime ? `Breathing: ${log.breathingTime}s | ` : ""}
+        ${log.relaxationTime ? `Relaxation: ${log.relaxationTime}s | ` : ""}
       </div>
     </div>
 
-    <div class="col-auto">
-      <button class="btn btn-primary btn-sm" onclick="openEditModal('${log._id}')">
-        <i class="bi bi-pencil"></i> Edit
+    <div class="col-auto d-flex gap-2">
+      <button class="btn btn-outline-primary btn-sm" onclick="openEditModal('${log._id}')">
+        <i class="bi bi-pencil"></i>
       </button>
-      <button class="btn btn-danger btn-sm" onclick="handleDelete('${log._id}')">
-        <i class="bi bi-trash"></i> Delete
+      <button class="btn btn-outline-danger btn-sm" onclick="handleDelete('${log._id}')">
+        <i class="bi bi-trash"></i>
       </button>
     </div>
-
   </div>
 </div>
 `;
@@ -165,6 +171,8 @@ window.openEditModal = function (logId) {
   const log = logData.find((l) => l._id === logId);
   if (!log) return;
 
+  document.getElementById("editEmotionBefore").value = log.emotionBefore || "";
+document.getElementById("editEmotionAfter").value = log.emotionAfter || "";
   document.getElementById("editLogId").value = logId;
   document.getElementById("editDistressBefore").value =
     log.distressBefore || "";
@@ -177,20 +185,22 @@ window.openEditModal = function (logId) {
   if (window.$) {
     window.$("#editModal").modal("show");
   } else {
-    console.error("jQuery is not loaded! Bootstrap 4 requires it.");
+    console.error("jQuery is not loaded!");
   }
 };
 
 window.submitEdit = async function () {
   const logId = document.getElementById("editLogId").value;
   const updatedData = {
-    distressBefore: Number(document.getElementById("editDistressBefore").value),
-    distressLevel: Number(document.getElementById("editDistressAfter").value),
-    tempTime: Number(document.getElementById("editTemp").value),
-    exerciseTime: Number(document.getElementById("editExercise").value),
-    breathingTime: Number(document.getElementById("editBreathing").value),
-    relaxationTime: Number(document.getElementById("editRelaxation").value),
-  };
+  distressBefore: Number(document.getElementById("editDistressBefore").value),
+  distressAfter: Number(document.getElementById("editDistressAfter").value),
+  emotionBefore: document.getElementById("editEmotionBefore").value || null,
+  emotionAfter: document.getElementById("editEmotionAfter").value || null,
+  temperatureTime: Number(document.getElementById("editTemp").value),
+  intenseExerciseTime: Number(document.getElementById("editExercise").value),
+  breathingTime: Number(document.getElementById("editBreathing").value),
+  relaxationTime: Number(document.getElementById("editRelaxation").value),
+};
 
   try {
     const response = await fetch(`/api/log/${logId}`, {
