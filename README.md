@@ -15,3 +15,4 @@ TIPP Sheet is a mental‑health resource platform designed to help users practic
 - [Design Documents](/designdoc/README.md "View planning materials")
 - [Presentation Slides](https://docs.google.com/presentation/d/1HAD6tIYrmdqC5iDKvJT0JPu7LSjdJjrOgLk_ntm5As4/edit?usp=sharing "View slides on this website's design and implmentation")
 - [Video Demonstration](https://www.markdownguide.org "Watch us present on this website")
+
